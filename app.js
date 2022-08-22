@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const Todo = require('./models/todo');
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,7 +14,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 //https://github.com/Automattic/mongoose/issues/1740#issuecomment-266772509
-const dburl = 'mongodb://root:pass@127.0.0.1:27017/tododb?authSource=admin';
+const dburl = `mongodb://root:pass@${process.env.MONGODB_URL}:27017/tododb?authSource=admin`;
 try{
     mongoose.connect(dburl, {useNewUrlParser: true, useUnifiedTopology: true});
     console.log('db connection success');

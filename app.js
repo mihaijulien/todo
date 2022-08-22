@@ -10,10 +10,10 @@ app.use(express.json());
 //parse application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
-app.use(express.static("public"));
+app.use(express.static('public'));
 
 //https://github.com/Automattic/mongoose/issues/1740#issuecomment-266772509
-const dburl = "mongodb://root:pass@127.0.0.1:27017/tododb?authSource=admin";
+const dburl = 'mongodb://root:pass@127.0.0.1:27017/tododb?authSource=admin';
 try{
     mongoose.connect(dburl, {useNewUrlParser: true, useUnifiedTopology: true});
     console.log('db connection success');
@@ -23,10 +23,10 @@ try{
 
 app.get('/', function(req, res){
     Todo.find()
-    .then(result => {
-        res.render("home", { data: result});
-        console.log(result);
-    });
+        .then(result => {
+            res.render('home', { data: result});
+            console.log(result);
+        });
 });
 
 app.post('/', function(req, res){
@@ -42,7 +42,7 @@ app.post('/', function(req, res){
     });
 });
 
-app.post("/delete", function(req,res){
+app.post('/delete', function(req,res){
     const note = req.body.checkbox;
     Todo.findByIdAndDelete(note, function(err){
         if(err){
@@ -50,7 +50,7 @@ app.post("/delete", function(req,res){
         } else {
             res.redirect('/');
         }
-    })
+    });
 });
 
 app.listen(PORT, function(){

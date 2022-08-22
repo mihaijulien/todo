@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const express = require('express');
-const bodyParser = require('body-parser')
 const Todo = require('./models/todo');
 
 const app = express();
@@ -41,6 +40,17 @@ app.post('/', function(req, res){
             res.redirect('/');
         }
     });
+});
+
+app.delete("/:id", function(req,res){
+    const note = req.params.id;
+    Todo.findByIdAndDelete(note, function(err){
+        if(err){
+            consolee.log(err);
+        } else {
+            res.redirect('/');
+        }
+    })
 });
 
 app.listen(PORT, function(){

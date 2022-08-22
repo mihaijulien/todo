@@ -17,11 +17,18 @@
                 <button type="submit">Submit</button>
             </form>
 
+            <div id="box">
             <% if(data) { %>
                 <% data.forEach(function(newNote) { %>
-                     <p><%=newNote.todoItem %></p>
+                    <form action="/delete" method="POST">
+                        <div id="newNote">
+                        <input type="checkbox" name="checkbox" value="<%=newNote._id%>" onchange="this.form.submit()">
+                        <p><%=newNote.todoItem %></p>
+                    </div>
+                    </form>
                 <%  }) %>
            <% } %>
+            </div>
         </center>
     </body>
 </html>

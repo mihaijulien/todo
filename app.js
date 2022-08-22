@@ -42,11 +42,11 @@ app.post('/', function(req, res){
     });
 });
 
-app.delete("/:id", function(req,res){
-    const note = req.params.id;
+app.post("/delete", function(req,res){
+    const note = req.body.checkbox;
     Todo.findByIdAndDelete(note, function(err){
         if(err){
-            consolee.log(err);
+            console.log(err);
         } else {
             res.redirect('/');
         }

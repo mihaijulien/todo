@@ -22,3 +22,10 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://root:pass@mongo:27017/
     depends_on:
       - mongo
+
+  todo-app:
+    build: .
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo

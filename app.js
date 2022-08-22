@@ -7,9 +7,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 //parse application/json
-app.use(bodyParser.json());
+app.use(express.json());
 //parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
 
@@ -23,13 +23,16 @@ try{
 }
 
 app.get('/', function(req, res){
-    res.render('home');
+    Todo.find()
+    .then(result => {
+        res.render("home", { data: result});
+        console.log(result);
+    });
 });
 
 app.post('/', function(req, res){
-    console.log(req.body);
     const todo = new Todo({
-        todoItem: 'nvm'//req.body.input
+        todoItem: req.body.newNote
     });
     todo.save(function(err){
         if(err){
